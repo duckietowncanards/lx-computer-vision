@@ -238,15 +238,18 @@ class LaneServoingNode(DTROS):
 
         # now rescale from 0 to 1
         steer_scaled = np.sign(steer) * rescale(min(np.abs(steer), self.steer_max), 0, self.steer_max)
+        # steer_scaled = -1
 
-        u = [self.v_0, steer_scaled * self.omega_max]
+        u = [self.v_0, 4 * steer_scaled * self.omega_max]
         self.publish_command(u)
 
         # self.logging to screen for debugging purposes
         self.loginfo("    VISUAL SERVOING    ")
         self.loginfo(
-            f"Steering: (Unnormalized) : {int(steer)} / {int(self.steer_max)},"
-            f"  Steering (Normalized) : {np.round(steer_scaled, 1)}"
+            # f"Steering: (Unnormalized) : {int(steer)} / {int(self.steer_max)},"
+            # f"  Steering (Normalized) : {np.round(steer_scaled, 1)}"
+            # f"Pissr; {steer, float(np.sum(lt_mask * steer_matrix_left_lm)), float(np.sum(rt_mask * steer_matrix_right_lm))}"
+            f"Fahre nach {steer_scaled, np.sign(steer) }"
         )
         self.loginfo(f"Command v : {np.round(u[0], 2)},  omega : {np.round(u[1], 2)}")
 
