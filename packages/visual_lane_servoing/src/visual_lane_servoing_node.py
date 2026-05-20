@@ -239,7 +239,7 @@ class LaneServoingNode(DTROS):
         # now rescale from 0 to 1
         steer_scaled = np.sign(steer) * rescale(min(np.abs(steer), self.steer_max), 0, self.steer_max)
 
-        u = [self.v_0, steer_scaled * self.omega_max]
+        u = [self.v_0, 5 * steer_scaled * self.omega_max]
         self.publish_command(u)
 
         # self.logging to screen for debugging purposes

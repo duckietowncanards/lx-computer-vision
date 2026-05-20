@@ -32,7 +32,7 @@ def get_steer_matrix_left_lane_markings(shape: Tuple[int, int]) -> np.ndarray:
 
     steer_matrix_left_lane[:, :width] = steer_unit # CHANGE ME
 
-    return steer_matrix_left_lane
+    return -steer_matrix_left_lane
 
 
 def get_steer_matrix_right_lane_markings(shape: Tuple[int, int]) -> np.ndarray:
@@ -73,10 +73,10 @@ def detect_lane_markings(image: np.ndarray, projector: GroundProjector) -> Tuple
         right_masked_img:  Masked image for the solid-white line (numpy.ndarray)
     """
 
-    sigma = 2  # Gaussian blur sigma
+    sigma = 3  # Gaussian blur sigma
     threshold = 10  # minimum threshold for gradient magnitude
-    white_lower_hsv = np.array([0, 0, 170])    
-    white_upper_hsv = np.array([179, 50, 255])   
+    white_lower_hsv = np.array([0, 0, 140])    
+    white_upper_hsv = np.array([179, 77, 255])   
     yellow_lower_hsv = np.array([15, 100, 80]) 
     yellow_upper_hsv = np.array([35, 255, 255])
 
